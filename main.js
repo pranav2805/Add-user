@@ -31,7 +31,16 @@ function onSubmit(e){
 
         // userList.appendChild(li);
 
-        localStorage.setItem(nameInput.value,emailInput.value);
+        let my_obj ={
+            name: nameInput.value,
+            email: emailInput.value
+        }
+
+        var myObj_serialized = JSON.stringify(my_obj);
+
+        localStorage.setItem("myObj", myObj_serialized);
+
+        //console.log(localStorage.getItem("myObj"));
 
         //Clear fields
         nameInput.value='';
