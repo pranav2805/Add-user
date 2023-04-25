@@ -50,6 +50,12 @@ function onSubmit(e){
         deleteBtn.textContent = 'delete';
         li.appendChild(deleteBtn);
 
+        const editBtn = document.createElement('button');
+        editBtn.className = 'edit';
+
+        editBtn.textContent = 'edit';
+        li.appendChild(editBtn);
+
         userList.appendChild(li);
 
         deleteBtn.onclick = () => {
@@ -57,6 +63,12 @@ function onSubmit(e){
             userList.removeChild(li);
         };
 
+        editBtn.onclick = () => {
+            localStorage.removeItem(my_obj.email);
+            userList.removeChild(li);
+            nameInput.value = my_obj.name;
+            emailInput.value = my_obj.email;
+        }
 
         //console.log(localStorage.getItem("myObj"));
 
@@ -85,15 +97,19 @@ function onSubmit(e){
 
 // }
 
-form.addEventListener('mouseover', onMouseover);
+// form.addEventListener('mouseover', onMouseover);
 
-function onMouseover(e){
+// function onMouseover(e){
+//     e.preventDefault();
+//     form.classList.add('btn-hover');
+// }
+
+form.addEventListener('mouseover', (e) =>{
     e.preventDefault();
     form.classList.add('btn-hover');
-}
+})
 
 // form.addEventListener('mouseout', onMouseout);
-
 // function onMouseout(e){
 //     e.preventDefault();
 //     document.querySelector('body').classList.add('bg-dark');
