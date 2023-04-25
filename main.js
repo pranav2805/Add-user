@@ -27,26 +27,36 @@ function onSubmit(e){
     else{
         const li = document.createElement('li');
 
-        li.appendChild(document.createTextNode(`${nameInput.value} - ${emailInput.value}`));
+        //li.appendChild(document.createTextNode(`${nameInput.value} - ${emailInput.value}`));
 
-        const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'delete';
-
-        deleteBtn.appendChild(document.createTextNode('delete'));
-        li.appendChild(deleteBtn);
-
-        userList.appendChild(li);
-
-        deleteBtn.addEventListener('click',removeElement);
-
+        //creating an object of user
         let my_obj ={
             name: nameInput.value,
             email: emailInput.value
         }
-
+        
         var myObj_serialized = JSON.stringify(my_obj);
 
+        //Storing the user as object in localstorage
         localStorage.setItem(emailInput.value, myObj_serialized);
+
+        //Displaying the details as object
+        li.textContent = my_obj.name +" "+my_obj.email;
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'delete';
+
+        //deleteBtn.appendChild(document.createTextNode('delete'));
+        deleteBtn.textContent = 'delete';
+        li.appendChild(deleteBtn);
+
+        userList.appendChild(li);
+
+        deleteBtn.onclick = () => {
+            localStorage.removeItem(my_obj.email);
+            userList.removeChild(li);
+        };
+
 
         //console.log(localStorage.getItem("myObj"));
 
@@ -56,24 +66,24 @@ function onSubmit(e){
     }
 }
 
-function removeElement(e){
+// function removeElement(e){
     
-    if(confirm('Are you sure?')){
-        var li = e.target.parentElement;
-        //console.log(li.childNodes[0]);
-        var text = JSON.stringify(li.childNodes[0].textContent);
-        //var text = li.childNodes[0].innerText;
-        var array = text.split('-');
+//     if(confirm('Are you sure?')){
+//         var li = e.target.parentElement;
+//         //console.log(li.childNodes[0]);
+//         var text = JSON.stringify(li.childNodes[0].textContent);
+//         //var text = li.childNodes[0].innerText;
+//         var array = text.split('-');
 
-        //console.log(array[1]);
+//         //console.log(array[1]);
 
-        localStorage.removeItem(array[1]);
+//         localStorage.removeItem(array[1]);
 
-        userList.removeChild(li);
+//         userList.removeChild(li);
 
-    }
+//     }
 
-}
+// }
 
 form.addEventListener('mouseover', onMouseover);
 
