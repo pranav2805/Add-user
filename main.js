@@ -29,7 +29,15 @@ function onSubmit(e){
 
         li.appendChild(document.createTextNode(`${nameInput.value} - ${emailInput.value}`));
 
+        const deleteBtn = document.createElement('button');
+        deleteBtn.className = 'delete';
+
+        deleteBtn.appendChild(document.createTextNode('delete'));
+        li.appendChild(deleteBtn);
+
         userList.appendChild(li);
+
+        deleteBtn.addEventListener('click',removeElement);
 
         let my_obj ={
             name: nameInput.value,
@@ -46,6 +54,25 @@ function onSubmit(e){
         nameInput.value='';
         emailInput.value='';
     }
+}
+
+function removeElement(e){
+    
+    if(confirm('Are you sure?')){
+        var li = e.target.parentElement;
+        //console.log(li.childNodes[0]);
+        var text = JSON.stringify(li.childNodes[0].textContent);
+        //var text = li.childNodes[0].innerText;
+        var array = text.split('-');
+
+        //console.log(array[1]);
+
+        localStorage.removeItem(array[1]);
+
+        userList.removeChild(li);
+
+    }
+
 }
 
 form.addEventListener('mouseover', onMouseover);
